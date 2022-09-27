@@ -139,7 +139,41 @@ public class FiddlerRequestTest {
     }
 
     @Test
-    public void test() {
-
+    public void test_convertToRestClientRequest_withSettings() throws ParseException {
+        String sessionContent =
+                "POST http://192.168.1.65/v4.0/meter/communicationEqu/readPanel HTTP/1.1\n" +
+                        "Host: 192.168.1.65\n" +
+                        "Connection: keep-alive\n" +
+                        "Content-Length: 604\n" +
+                        "Accept: application/json, text/plain, */*\n" +
+                        "Authorization: Bearer 1a90ce59-6592-4ba5-a43e-1970a78d5425\n" +
+                        "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36\n" +
+                        "Content-Type: application/json;charset=UTF-8\n" +
+                        "Origin: http://192.168.1.65\n" +
+                        "Referer: http://192.168.1.65/web-meter/\n" +
+                        "Accept-Encoding: gzip, deflate\n" +
+                        "Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7,pl;q=0.6\n" +
+                        "Cookie: loginToken=1a90ce59-6592-4ba5-a43e-1970a78d5425; refresh_token=300ed705-d4c0-4cdb-ba22-5e7f04163b2c; loginToken_msg=1a90ce59-6592-4ba5-a43e-1970a78d5425; refresh_token_msg=300ed705-d4c0-4cdb-ba22-5e7f04163b2c; sidebarStatus=1\n" +
+                        "\n" +
+                        "{\"datas\":[{\"uniqueId\":1456,\"equNo\":\"04234742\",\"netEquNo\":\"77000001\",\"equType\":\"TemperaturePanel\"},{\"uniqueId\":1521,\"equNo\":\"123jrx\",\"netEquNo\":\"1028001\",\"equType\":\"TemperaturePanel\"},{\"uniqueId\":1382,\"equNo\":\"0819001\",\"netEquNo\":\"123400011\",\"equType\":\"TemperaturePanel\"},{\"uniqueId\":363,\"equNo\":\"1222\",\"netEquNo\":\"A001改\",\"equType\":\"TemperaturePanel\"},{\"uniqueId\":145479,\"equNo\":\"1231\",\"netEquNo\":\"AI控制器1020\",\"equType\":\"TemperaturePanel\"},{\"uniqueId\":145489,\"equNo\":\"W1\",\"netEquNo\":\"W1\",\"equType\":\"TemperaturePanel\"},{\"uniqueId\":145463,\"equNo\":\"1\",\"netEquNo\":\"4455\",\"equType\":\"TemperaturePanel\"}]}\n" +
+                        "HTTP/1.1 200 OK\n" +
+                        "Server: nginx\n" +
+                        "Date: Mon, 26 Sep 2022 07:28:35 GMT\n" +
+                        "Content-Type: application/json;charset=UTF-8\n" +
+                        "Connection: keep-alive\n" +
+                        "X-Content-Type-Options: nosniff\n" +
+                        "X-XSS-Protection: 1; mode=block\n" +
+                        "Cache-Control: no-cache, no-store, max-age=0, must-revalidate\n" +
+                        "Pragma: no-cache\n" +
+                        "Expires: 0\n" +
+                        "Cache-Control: no-cache\n" +
+                        "Access-Control-Allow-Origin: *\n" +
+                        "Access-Control-Allow-Methods: PUT, DELETE, GET, POST, OPTIONS, PATCH\n" +
+                        "Access-Control-Allow-Headers: DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization\n" +
+                        "X-Frame-Options: SAMEORIGIN\n" +
+                        "Content-Length: 66\n" +
+                        "\n" +
+                        "{\"resultCode\":0,\"message\":\"操作成功\",\"data\":{\"taskId\":325674}}\n";
+        FiddlerRequest fiddlerRequest = new FiddlerRequest(sessionContent);
     }
 }

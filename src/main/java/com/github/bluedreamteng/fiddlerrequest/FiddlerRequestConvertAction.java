@@ -1,6 +1,7 @@
 package com.github.bluedreamteng.fiddlerrequest;
 
 import com.github.bluedreamteng.notification.Notifier;
+import com.github.bluedreamteng.setting.RequestConvertSetting;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
@@ -28,7 +29,13 @@ public class FiddlerRequestConvertAction extends AnAction {
             Notifier.notifyError(e.getProject(),parseException.getMessage());
             return;
         }
-        String restClientRequestContent = fiddlerRequest.convertToRestClientRequest();
+        RequestConvertSetting requestConvertSetting = RequestConvertSetting.getInstance(e.getProject());
+        String restClientRequestContent;
+        if (requestConvertSetting.enableConvertRule) {
+            restClientRequestContent = fiddlerRequest.convertToRestClientRequest(new RequestConvertConfig(requestConvertSetting));
+        } else {
+            restClientRequestContent = fiddlerRequest.convertToRestClientRequest();
+        }
         Editor editor = e.getData(PlatformDataKeys.EDITOR);
         if (editor == null)
             return;

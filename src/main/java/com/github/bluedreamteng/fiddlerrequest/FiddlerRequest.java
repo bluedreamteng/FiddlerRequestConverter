@@ -1,8 +1,12 @@
 package com.github.bluedreamteng.fiddlerrequest;
 
+import com.intellij.openapi.util.text.StringUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FiddlerRequest {
@@ -55,16 +59,39 @@ public class FiddlerRequest {
     }
 
     public String convertToRestClientRequest() {
+        return buildRequest(getRequestUrl(),getRequestHeaders());
+    }
+
+    public String convertToRestClientRequest(RequestConvertConfig requestConvertConfig) {
+        String newRequestUrl = getRequestUrl();
+        if(StringUtil.isNotEmpty(requestConvertConfig.getUrlTarget())){
+            newRequestUrl = newRequestUrl.replace(requestConvertConfig.getUrlTarget(),requestConvertConfig.getUrlTargetReplaceValue());
+        }
+        Map<String, String> newRequestHeaders = new HashMap<>();
+        List<String> requestHeaderWhiteList = requestConvertConfig.getRequestHeaderWhiteList();
+        if(!requestHeaderWhiteList.isEmpty()) {
+            for (String s : getRequestHeaders().keySet()) {
+                if(!requestHeaderWhiteList.contains(s)) {
+                    newRequestHeaders.put(s,getRequestHeaders().get(s));
+                }
+            }
+        }
+        return buildRequest(newRequestUrl,newRequestHeaders);
+    }
+
+    @NotNull
+    private String buildRequest(String requestUrl,Map<String, String> requestHeaders) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("###\n");
-        stringBuilder.append(getRequestType()).append(" ").append(getRequestUrl()).append("\n");
-        for (Map.Entry<String, String> stringStringEntry : getRequestHeaders().entrySet()) {
-            stringBuilder.append(stringStringEntry.getKey()).append(": ").append(stringStringEntry.getValue()).append( "\n");
+        stringBuilder.append(getRequestType()).append(" ").append(requestUrl).append("\n");
+        for (Map.Entry<String, String> stringStringEntry : requestHeaders.entrySet()) {
+            stringBuilder.append(stringStringEntry.getKey()).append(": ").append(stringStringEntry.getValue()).append("\n");
         }
-        if(StringUtils.isNotEmpty(getRequestBody())) {
+        if (StringUtils.isNotEmpty(getRequestBody())) {
             stringBuilder.append("\n");
             stringBuilder.append(getRequestBody());
         }
         return StringUtils.chomp(stringBuilder.toString());
     }
+
 }
