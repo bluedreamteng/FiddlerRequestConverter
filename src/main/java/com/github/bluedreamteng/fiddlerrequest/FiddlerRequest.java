@@ -71,7 +71,7 @@ public class FiddlerRequest {
         List<String> requestHeaderWhiteList = requestConvertConfig.getRequestHeaderWhiteList();
         if(!requestHeaderWhiteList.isEmpty()) {
             for (String s : getRequestHeaders().keySet()) {
-                if(!requestHeaderWhiteList.contains(s)) {
+                if(requestHeaderWhiteList.contains(s)) {
                     newRequestHeaders.put(s,getRequestHeaders().get(s));
                 }
             }

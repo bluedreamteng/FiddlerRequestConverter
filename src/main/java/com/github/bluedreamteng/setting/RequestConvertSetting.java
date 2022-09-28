@@ -10,16 +10,11 @@ import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @State(
         name = "com.github.bluedreamteng.fiddlerrequest.RequestConvertSetting",
         storages = {@Storage("requestconvertsetting.xml")}
 )
 public class RequestConvertSetting implements PersistentStateComponent<RequestConvertSetting> {
-
-    public boolean enableConvertRule = true;
 
     public String urlTarget = "";
 

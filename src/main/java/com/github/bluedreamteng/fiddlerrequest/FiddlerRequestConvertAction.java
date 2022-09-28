@@ -9,6 +9,7 @@ import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.CaretModel;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.ide.CopyPasteManager;
+import com.intellij.openapi.ui.MessageDialogBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,9 +30,10 @@ public class FiddlerRequestConvertAction extends AnAction {
             Notifier.notifyError(e.getProject(),parseException.getMessage());
             return;
         }
-        RequestConvertSetting requestConvertSetting = RequestConvertSetting.getInstance(e.getProject());
+        MessageDialogBuilder.YesNo yesNo = MessageDialogBuilder.YesNo.yesNo("是否应用转换规则", "是否应用转换规则");
         String restClientRequestContent;
-        if (requestConvertSetting.enableConvertRule) {
+        if (yesNo.isYes()) {
+            RequestConvertSetting requestConvertSetting = RequestConvertSetting.getInstance(e.getProject());
             restClientRequestContent = fiddlerRequest.convertToRestClientRequest(new RequestConvertConfig(requestConvertSetting));
         } else {
             restClientRequestContent = fiddlerRequest.convertToRestClientRequest();

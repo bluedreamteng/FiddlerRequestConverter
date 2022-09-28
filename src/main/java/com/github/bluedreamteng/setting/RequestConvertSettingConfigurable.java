@@ -20,6 +20,7 @@ public class RequestConvertSettingConfigurable implements Configurable {
 
     public RequestConvertSettingConfigurable(Project project) {
         this.project = project;
+        requestConvertSettingComponent = new RequestConvertSettingComponent();
     }
 
     @Nls(capitalization = Nls.Capitalization.Title)
@@ -43,16 +44,14 @@ public class RequestConvertSettingConfigurable implements Configurable {
     @Override
     public boolean isModified() {
         RequestConvertSetting requestConvertSetting = RequestConvertSetting.getInstance(project);
-        return (requestConvertSettingComponent.getEnableConvertRule() != requestConvertSetting.enableConvertRule) ||
-                !requestConvertSettingComponent.getUrlTarget().equals(requestConvertSetting.urlTarget) ||
+        return (!requestConvertSettingComponent.getUrlTarget().equals(requestConvertSetting.urlTarget) ||
                 !requestConvertSettingComponent.getUrlTargetReplaceValue().equals(requestConvertSetting.urlTargetReplaceValue) ||
-                !requestConvertSettingComponent.getRequestHeaderWhiteList().equals(requestConvertSetting.requestHeaderWhiteList);
+                !requestConvertSettingComponent.getRequestHeaderWhiteList().equals(requestConvertSetting.requestHeaderWhiteList));
     }
 
     @Override
     public void apply() {
         RequestConvertSetting requestConvertSetting = RequestConvertSetting.getInstance(project);
-        requestConvertSetting.enableConvertRule = requestConvertSettingComponent.getEnableConvertRule();
         requestConvertSetting.urlTarget = requestConvertSettingComponent.getUrlTarget();
         requestConvertSetting.urlTargetReplaceValue = requestConvertSettingComponent.getUrlTargetReplaceValue();
         requestConvertSetting.requestHeaderWhiteList = requestConvertSettingComponent.getRequestHeaderWhiteList();
@@ -61,7 +60,6 @@ public class RequestConvertSettingConfigurable implements Configurable {
     @Override
     public void reset() {
         RequestConvertSetting requestConvertSetting = RequestConvertSetting.getInstance(project);
-        requestConvertSettingComponent.setEnableConvertRule(requestConvertSetting.enableConvertRule);
         requestConvertSettingComponent.setUrlTarget(requestConvertSetting.urlTarget);
         requestConvertSettingComponent.setUrlTargetReplaceValue(requestConvertSetting.urlTargetReplaceValue);
         requestConvertSettingComponent.setRequestHeaderWhiteList(requestConvertSetting.requestHeaderWhiteList);
