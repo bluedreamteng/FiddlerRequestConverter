@@ -1,7 +1,6 @@
 package com.github.bluedreamteng.setting;
 
 import com.intellij.openapi.options.Configurable;
-import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,11 +14,9 @@ import javax.swing.*;
 public class RequestConvertSettingConfigurable implements Configurable {
 
     private RequestConvertSettingComponent requestConvertSettingComponent;
-    private final Project project;
 
 
-    public RequestConvertSettingConfigurable(Project project) {
-        this.project = project;
+    public RequestConvertSettingConfigurable() {
         requestConvertSettingComponent = new RequestConvertSettingComponent();
     }
 
@@ -43,25 +40,22 @@ public class RequestConvertSettingConfigurable implements Configurable {
 
     @Override
     public boolean isModified() {
-        RequestConvertSetting requestConvertSetting = RequestConvertSetting.getInstance(project);
-        return (!requestConvertSettingComponent.getUrlTarget().equals(requestConvertSetting.urlTarget) ||
-                !requestConvertSettingComponent.getUrlTargetReplaceValue().equals(requestConvertSetting.urlTargetReplaceValue) ||
+        RequestConvertSetting requestConvertSetting = RequestConvertSetting.getInstance();
+        return (!requestConvertSettingComponent.getUrlTargetList().equals(requestConvertSetting.urlTargetList) ||
                 !requestConvertSettingComponent.getRequestHeaderWhiteList().equals(requestConvertSetting.requestHeaderWhiteList));
     }
 
     @Override
     public void apply() {
-        RequestConvertSetting requestConvertSetting = RequestConvertSetting.getInstance(project);
-        requestConvertSetting.urlTarget = requestConvertSettingComponent.getUrlTarget();
-        requestConvertSetting.urlTargetReplaceValue = requestConvertSettingComponent.getUrlTargetReplaceValue();
+        RequestConvertSetting requestConvertSetting = RequestConvertSetting.getInstance();
+        requestConvertSetting.urlTargetList = requestConvertSettingComponent.getUrlTargetList();
         requestConvertSetting.requestHeaderWhiteList = requestConvertSettingComponent.getRequestHeaderWhiteList();
     }
 
     @Override
     public void reset() {
-        RequestConvertSetting requestConvertSetting = RequestConvertSetting.getInstance(project);
-        requestConvertSettingComponent.setUrlTarget(requestConvertSetting.urlTarget);
-        requestConvertSettingComponent.setUrlTargetReplaceValue(requestConvertSetting.urlTargetReplaceValue);
+        RequestConvertSetting requestConvertSetting = RequestConvertSetting.getInstance();
+        requestConvertSettingComponent.setUrlTargetList(requestConvertSetting.urlTargetList);
         requestConvertSettingComponent.setRequestHeaderWhiteList(requestConvertSetting.requestHeaderWhiteList);
 
     }

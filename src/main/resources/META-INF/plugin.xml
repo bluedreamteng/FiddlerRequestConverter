@@ -14,8 +14,8 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
-        <projectService serviceImplementation="com.github.bluedreamteng.setting.RequestConvertSetting"/>
-        <projectConfigurable parentId="tools" instance="com.github.bluedreamteng.setting.RequestConvertSettingConfigurable"
+        <applicationService serviceImplementation="com.github.bluedreamteng.setting.RequestConvertSetting"/>
+        <applicationConfigurable parentId="tools" instance="com.github.bluedreamteng.setting.RequestConvertSettingConfigurable"
                              id="com.github.bluedreamteng.setting.RequestConvertSettingConfigurable"
                              displayName="Request Convert" nonDefaultProject="true"
         />

@@ -1,6 +1,5 @@
 package com.github.bluedreamteng.fiddlerrequest;
 
-import com.intellij.openapi.util.text.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -64,10 +63,15 @@ public class FiddlerRequest {
 
     public String convertToRestClientRequest(RequestConvertConfig requestConvertConfig) {
         String newRequestUrl = getRequestUrl();
-        if(StringUtil.isNotEmpty(requestConvertConfig.getUrlTarget())){
-            newRequestUrl = newRequestUrl.replace(requestConvertConfig.getUrlTarget(),requestConvertConfig.getUrlTargetReplaceValue());
+        if(!requestConvertConfig.getUrlTargets().isEmpty()){
+            for (Map.Entry<String, String> urlTargetsEntry : requestConvertConfig.getUrlTargets().entrySet()) {
+                if(newRequestUrl.contains(urlTargetsEntry.getKey())) {
+                    newRequestUrl = newRequestUrl.replace(urlTargetsEntry.getKey(),urlTargetsEntry.getValue());
+                    break;
+                }
+            }
         }
-        Map<String, String> newRequestHeaders = new HashMap<>();
+        Map<String, String> newRequestHeaders = new LinkedHashMap<>();
         List<String> requestHeaderWhiteList = requestConvertConfig.getRequestHeaderWhiteList();
         if(!requestHeaderWhiteList.isEmpty()) {
             for (String s : getRequestHeaders().keySet()) {

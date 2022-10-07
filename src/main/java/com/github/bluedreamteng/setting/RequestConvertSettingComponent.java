@@ -6,19 +6,16 @@ import javax.swing.*;
 
 public class RequestConvertSettingComponent {
     private final JPanel myMainPanel;
-    private final JTextField urlTarget;
-    private final JTextField urlTargetReplaceValue;
+    private final JTextField urlTargetList;
     private final JTextField requestHeaderWhiteList;
 
 
     public RequestConvertSettingComponent() {
-        urlTarget = new JTextField();
-        urlTargetReplaceValue = new JTextField();
+        urlTargetList = new JTextField();
         requestHeaderWhiteList = new JTextField();
 
         myMainPanel = FormBuilder.createFormBuilder()
-                .addLabeledComponent("Url目标特征值:", urlTarget)
-                .addLabeledComponent("Url目标特征值替换值:", urlTargetReplaceValue)
+                .addLabeledComponent("Url目标特征值:", urlTargetList)
                 .addLabeledComponent("请求头白名单:", requestHeaderWhiteList)
                 .addComponentFillVertically(new JPanel(), 0)
                 .getPanel();
@@ -29,23 +26,15 @@ public class RequestConvertSettingComponent {
     }
 
     public JComponent getPreferredFocusedComponent() {
-        return urlTarget;
+        return urlTargetList;
     }
 
-    public void setUrlTarget(String value) {
-        urlTarget.setText(value);
+    public void setUrlTargetList(String value) {
+        urlTargetList.setText(value);
     }
 
-    public String getUrlTarget() {
-        return urlTarget.getText();
-    }
-
-    public void setUrlTargetReplaceValue(String value) {
-        urlTargetReplaceValue.setText(value);
-    }
-
-    public String getUrlTargetReplaceValue() {
-        return urlTargetReplaceValue.getText();
+    public String getUrlTargetList() {
+        return urlTargetList.getText();
     }
 
     public void setRequestHeaderWhiteList(String value) {

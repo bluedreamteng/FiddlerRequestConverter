@@ -2,9 +2,12 @@ package com.github.bluedreamteng;
 
 import com.github.bluedreamteng.fiddlerrequest.FiddlerRequest;
 import com.github.bluedreamteng.fiddlerrequest.ParseException;
+import com.github.bluedreamteng.fiddlerrequest.RequestConvertConfig;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -175,5 +178,21 @@ public class FiddlerRequestTest {
                         "\n" +
                         "{\"resultCode\":0,\"message\":\"操作成功\",\"data\":{\"taskId\":325674}}\n";
         FiddlerRequest fiddlerRequest = new FiddlerRequest(sessionContent);
+        Map<String,String> urlTargetList = new HashMap<>();
+        urlTargetList.put("http://192.168.1.65/v4.0/meter","http://localhost:8090");
+        List<String> headWhiteList = new ArrayList<>();
+        headWhiteList.add("Host");
+        headWhiteList.add("Authorization");
+        headWhiteList.add("Content-Type");
+        String content = fiddlerRequest.convertToRestClientRequest(new RequestConvertConfig(urlTargetList, headWhiteList));
+
+        String restClientRequest = "###\n"+
+                "POST http://localhost:8090/communicationEqu/readPanel\n" +
+                "Host: 192.168.1.65\n" +
+                "Authorization: Bearer 1a90ce59-6592-4ba5-a43e-1970a78d5425\n" +
+                "Content-Type: application/json;charset=UTF-8\n" +
+                "\n" +
+                "{\"datas\":[{\"uniqueId\":1456,\"equNo\":\"04234742\",\"netEquNo\":\"77000001\",\"equType\":\"TemperaturePanel\"},{\"uniqueId\":1521,\"equNo\":\"123jrx\",\"netEquNo\":\"1028001\",\"equType\":\"TemperaturePanel\"},{\"uniqueId\":1382,\"equNo\":\"0819001\",\"netEquNo\":\"123400011\",\"equType\":\"TemperaturePanel\"},{\"uniqueId\":363,\"equNo\":\"1222\",\"netEquNo\":\"A001改\",\"equType\":\"TemperaturePanel\"},{\"uniqueId\":145479,\"equNo\":\"1231\",\"netEquNo\":\"AI控制器1020\",\"equType\":\"TemperaturePanel\"},{\"uniqueId\":145489,\"equNo\":\"W1\",\"netEquNo\":\"W1\",\"equType\":\"TemperaturePanel\"},{\"uniqueId\":145463,\"equNo\":\"1\",\"netEquNo\":\"4455\",\"equType\":\"TemperaturePanel\"}]}";
+        assertEquals(restClientRequest,content);
     }
 }
