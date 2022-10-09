@@ -26,7 +26,7 @@
         <action id="com.github.bluedreamteng.fiddlerrequest.FiddlerRequestConvertAction"
                 class="com.github.bluedreamteng.fiddlerrequest.FiddlerRequestConvertAction" text="Convert Fiddler Request"
                 description="Convert fiddler request to RestClient request">
-            <keyboard-shortcut first-keystroke="shift ctrl S" keymap="$default"/>
+            <keyboard-shortcut first-keystroke="alt S" keymap="$default"/>
             <add-to-group group-id="ToolsMenu" anchor="first"/>
         </action>
     </actions>

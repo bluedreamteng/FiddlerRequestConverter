@@ -32,7 +32,7 @@ public class FiddlerRequestConvertAction extends AnAction {
         }
         MessageDialogBuilder.YesNo yesNo = MessageDialogBuilder.YesNo.yesNo("是否应用转换规则", "是否应用转换规则");
         String restClientRequestContent;
-        if (yesNo.isYes()) {
+        if (yesNo.ask(e.getProject())) {
             RequestConvertSetting requestConvertSetting = RequestConvertSetting.getInstance();
             restClientRequestContent = fiddlerRequest.convertToRestClientRequest(new RequestConvertConfig(requestConvertSetting.getUrlTargetList(),requestConvertSetting.getRequestHeaderWhiteList()));
         } else {

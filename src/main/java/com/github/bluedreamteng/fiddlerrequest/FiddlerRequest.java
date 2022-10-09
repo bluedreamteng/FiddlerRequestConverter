@@ -3,7 +3,6 @@ package com.github.bluedreamteng.fiddlerrequest;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,8 +18,7 @@ public class FiddlerRequest {
 
     public FiddlerRequest(String sessionContent) throws ParseException {
         try {
-            String[] sessionSegments = sessionContent.split("(HTTP/1.1) ([0-9]{3}) ([A-Z]+)");
-            String requestContentsString = StringUtils.chomp(sessionSegments[0].trim());
+            String requestContentsString = StringUtils.chomp(sessionContent.trim());
             String[] requestContents = requestContentsString.split("\n\n");
             String[] requestHeaderSegments = requestContents[0].split("\n");
             String[] requestAddress = requestHeaderSegments[0].split(" ");
@@ -41,19 +39,19 @@ public class FiddlerRequest {
         }
     }
 
-    public String getRequestType() {
+    private String getRequestType() {
         return requestType;
     }
 
-    public String getRequestUrl() {
+    private String getRequestUrl() {
         return requestUrl;
     }
 
-    public String getRequestBody() {
+    private String getRequestBody() {
         return requestBody;
     }
 
-    public Map<String, String> getRequestHeaders() {
+    private Map<String, String> getRequestHeaders() {
         return requestHeaders;
     }
 
@@ -95,7 +93,7 @@ public class FiddlerRequest {
             stringBuilder.append("\n");
             stringBuilder.append(getRequestBody());
         }
-        return StringUtils.chomp(stringBuilder.toString());
+        return stringBuilder.toString();
     }
 
 }
